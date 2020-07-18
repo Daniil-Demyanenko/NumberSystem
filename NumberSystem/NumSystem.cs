@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NumberSystemApp
+namespace NumberSystem
 {
-    class NumberSystem
+    public class NumSystem
     {
         //Abc -- "Заданная система счисления"
+
         /// <summary>
         /// Строка символов системы счисления Abc по порядку (алфавит)
         /// </summary>
@@ -26,7 +23,7 @@ namespace NumberSystemApp
         /// </summary>
         public string Abc { private set; get; }
 
-        public NumberSystem() 
+        public NumSystem()
         {
             numbers = "01";
             lenght = numbers.Length;
@@ -37,7 +34,7 @@ namespace NumberSystemApp
         /// Инициализирует систему счисления
         /// </summary>
         /// <param name="numbers">Строка символов системы счисления Abc по порядку (алфавит)</param>
-        public NumberSystem(string numbers)
+        public NumSystem(string numbers)
         {
             this.numbers = numbers;
             lenght = numbers.Length;
@@ -87,12 +84,12 @@ namespace NumberSystemApp
         public int AbcToDec(string Abc)
         {
             int Dec = 0;
-            int ALenght = Abc.Length -1;
+            int ALenght = Abc.Length - 1;
             for (int i = 0; i < Abc.Length; i++)
             {
                 int index = numbers.IndexOf(Abc[i]);
                 if (index == -1) throw new Exception("UnknownSymbol");
-                Dec += index * (int)Math.Pow(lenght, Convert.ToDouble(ALenght-i));
+                Dec += index * (int)Math.Pow(lenght, Convert.ToDouble(ALenght - i));
             }
 
             return Dec;
@@ -123,7 +120,7 @@ namespace NumberSystemApp
         /// <summary>
         /// Инвертирует строку
         /// </summary>
-        private string Inverse(string str) 
+        private string Inverse(string str)
         {
             string s = "";
             for (int i = str.Length - 1; i >= 0; i--)
@@ -133,13 +130,13 @@ namespace NumberSystemApp
         /// <summary>
         /// Возвращает true если строка может являться значением в системе счисления Abc.
         /// </summary>
-        public bool isValidABC(string str) 
+        public bool isValidABC(string str)
         {
             bool Valid = true;
 
             for (int i = 0; i < str.Length; i++)
             {
-                if(numbers.IndexOf(str[i]) == -1) 
+                if (numbers.IndexOf(str[i]) == -1)
                 {
                     Valid = false;
                     break;
