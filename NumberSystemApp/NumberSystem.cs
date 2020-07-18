@@ -12,7 +12,7 @@ namespace NumberSystemApp
         /// <summary>
         /// Строка символов системы счисления Abc по порядку (алфавит)
         /// </summary>
-        string numbers;
+        public string numbers { private set; get; }
         /// <summary>
         /// Длинна алфавита (основание системы счисления)
         /// </summary>
@@ -20,11 +20,11 @@ namespace NumberSystemApp
         /// <summary>
         /// Текущее число в десятичной системе счисления
         /// </summary>
-        int Dec;
+        public int Dec { private set; get; }
         /// <summary>
         /// Текущее число в заданной системе счисления
         /// </summary>
-        string Abc;
+        public string Abc { private set; get; }
 
         public NumberSystem() 
         {
@@ -52,7 +52,7 @@ namespace NumberSystemApp
         public void setDecNumber(int num)
         {
             Dec = Math.Abs(num);
-            Abc = DecToABC(num);
+            Abc = DecToABC(Dec);
         }
         /// <summary>
         /// Устанавливает число Abc и его эквивалент в десятичной системе счисления
@@ -71,8 +71,6 @@ namespace NumberSystemApp
         {
             string result = "";
 
-            if (Dec < lenght) 
-                result += numbers[Dec];
             while (Dec >= 1)
             {
                 result += numbers[Dec % lenght];
@@ -100,6 +98,27 @@ namespace NumberSystemApp
             return Dec;
         }
 
+        /// <summary>
+        /// Возвращает следующее число в Abc системе счисления
+        /// </summary>
+        public string NextAbc()
+        {
+            Dec++;
+            Abc = DecToABC(Dec);
+            return Abc;
+        }
+        /// <summary>
+        /// Возвращает предыдущее число в Abc системе счисления, если оно не отрицательное. Иначе возвращает нуль в Abc системе счисления.
+        /// </summary>
+        public string LastAbc()
+        {
+            if (Dec > 0)
+            {
+                Dec--;
+                Abc = DecToABC(Dec);
+            }
+            return Abc;
+        }
 
         /// <summary>
         /// Инвертирует строку
@@ -110,6 +129,24 @@ namespace NumberSystemApp
             for (int i = str.Length - 1; i >= 0; i--)
                 s += str[i].ToString();
             return s;
-        } 
+        }
+        /// <summary>
+        /// Возвращает true если строка может являться значением в системе счисления Abc.
+        /// </summary>
+        public bool isValidABC(string str) 
+        {
+            bool Valid = true;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if(numbers.IndexOf(str[i]) == -1) 
+                {
+                    Valid = false;
+                    break;
+                }
+            }
+
+            return Valid;
+        }
     }
 }
