@@ -8,8 +8,9 @@ namespace NumberSystemApp
 {
     class NumberSystem
     {
+        //Abc -- "Заданная система счисления"
         /// <summary>
-        /// Строка символов системы счисления по порядку (алфавит)
+        /// Строка символов системы счисления Abc по порядку (алфавит)
         /// </summary>
         string numbers;
         /// <summary>
@@ -35,20 +36,22 @@ namespace NumberSystemApp
         /// <summary>
         /// Инициализирует систему счисления
         /// </summary>
-        public NumberSystem(string abc)
+        /// <param name="numbers">Строка символов системы счисления Abc по порядку (алфавит)</param>
+        public NumberSystem(string numbers)
         {
-            numbers = abc;
+            this.numbers = numbers;
             lenght = numbers.Length;
             Dec = 0;
             Abc = numbers[0].ToString();
         }
 
+
         /// <summary>
-        /// Устанавливает десятичное число и его эквивалент в Abc системе счисления
+        /// Устанавливает положительное десятичное число и его эквивалент в Abc системе счисления
         /// </summary>
         public void setDecNumber(int num)
         {
-            Dec = num;
+            Dec = Math.Abs(num);
             Abc = DecToABC(num);
         }
         /// <summary>
@@ -60,13 +63,53 @@ namespace NumberSystemApp
             Abc = num;
         }
 
+
+        /// <summary>
+        /// Представление десятичного числа в Abc системе счисления
+        /// </summary>
         public string DecToABC(int Dec)
         {
-            return "0";
+            string result = "";
+
+            if (Dec < lenght) 
+                result += numbers[Dec];
+            while (Dec >= 1)
+            {
+                result += numbers[Dec % lenght];
+                Dec /= lenght;
+            }
+
+            result = Inverse(result);
+            return result;
         }
+        /// <summary>
+        /// Представление Abc числа в десятичной системе счисления.  
+        /// Вызывает исключение с текстом "UnknownSymbol" при нахождении неизвестного символа.
+        /// </summary>
         public int AbcToDec(string Abc)
         {
-            return 0;
+            int Dec = 0;
+            int ALenght = Abc.Length -1;
+            for (int i = 0; i < Abc.Length; i++)
+            {
+                int index = numbers.IndexOf(Abc[i]);
+                if (index == -1) throw new Exception("UnknownSymbol");
+                Dec += index * (int)Math.Pow(lenght, Convert.ToDouble(ALenght-i));
+            }
+
+            return Dec;
         }
+
+
+        /// <summary>
+        /// Инвертирует строку
+        /// </summary>
+        private string Inverse(string str) 
+        {
+            string s = "";
+            for (int i = str.Length - 1; i >= 0; i--)
+                s += str[i].ToString();
+            return s;
+        } 
     }
 }
