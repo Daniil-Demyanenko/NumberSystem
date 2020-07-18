@@ -49,7 +49,7 @@ namespace NumberSystem
         public void setDecNumber(int num)
         {
             Dec = Math.Abs(num);
-            Abc = DecToABC(Dec);
+            Abc = DecToAbc(Dec);
         }
         /// <summary>
         /// Устанавливает число Abc и его эквивалент в десятичной системе счисления
@@ -64,7 +64,7 @@ namespace NumberSystem
         /// <summary>
         /// Представление десятичного числа в Abc системе счисления
         /// </summary>
-        public string DecToABC(int Dec)
+        public string DecToAbc(int Dec)
         {
             string result = "";
 
@@ -101,7 +101,7 @@ namespace NumberSystem
         public string NextAbc()
         {
             Dec++;
-            Abc = DecToABC(Dec);
+            Abc = DecToAbc(Dec);
             return Abc;
         }
         /// <summary>
@@ -112,7 +112,7 @@ namespace NumberSystem
             if (Dec > 0)
             {
                 Dec--;
-                Abc = DecToABC(Dec);
+                Abc = DecToAbc(Dec);
             }
             return Abc;
         }
@@ -130,7 +130,7 @@ namespace NumberSystem
         /// <summary>
         /// Возвращает true если строка может являться значением в системе счисления Abc.
         /// </summary>
-        public bool isValidABC(string str)
+        public bool isValidAbc(string str)
         {
             bool Valid = true;
 
