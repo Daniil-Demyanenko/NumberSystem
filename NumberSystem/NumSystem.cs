@@ -66,6 +66,7 @@ namespace NumberSystem
         /// </summary>
         public string DecToAbc(int Dec)
         {
+            Dec = Math.Abs(Dec);
             string result = "";
 
             while (Dec >= 1)
